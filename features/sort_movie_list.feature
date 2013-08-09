@@ -29,5 +29,7 @@ Scenario: sort movies alphabetically
 
 Scenario: sort movies in increasing order of release date
   When I follow "Release Date"
-  # your steps here
+  Then I should see "Aladdin" before "Amelie"
+    And I should see "The Terminator" before "Chicken Run"
+    And I should see "Chocolat" before "The Help"
 
