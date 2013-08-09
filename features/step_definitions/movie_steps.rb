@@ -6,7 +6,7 @@ Given /the following movies exist/ do |movies_table|
 end
 
 Given /^I check only the following ratings: ((?:.+,)*.+)$/ do |ratings|
-  checked_ratings = ratings.split ", "
+  checked_ratings = "(none)" == ratings ? [] : ratings.split(", ")
   unchecked_ratings = Movie.all_ratings - checked_ratings
   checked_ratings.each {|rating| check "ratings_#{rating}"}
   unchecked_ratings.each {|rating| uncheck "ratings_#{rating}"}
@@ -16,7 +16,7 @@ When /^I submit the filter form$/ do
   click_button "ratings_submit"
 end
 
-Then /^I should only see: ((?:.+,)*.+)$/ do |title_list|
+Then /^I should (?:|only )see titles: ((?:.+,)*.+)$/ do |title_list|
   titles = title_list.split ", "
   table_rows = all "table#movies tbody tr"
   assert table_rows.count == titles.count

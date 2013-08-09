@@ -29,10 +29,12 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   When I submit the filter form
   # enter step(s) to ensure that PG and R movies are visible
   # enter step(s) to ensure that other movies are not visible
-  Then I should only see: The Incredibles, Raiders of the Lost Ark, Amelie, When Harry Met Sally, The Terminator
+  Then I should only see titles: The Incredibles, Raiders of the Lost Ark, Amelie, When Harry Met Sally, The Terminator
 
 Scenario: no ratings selected
-  # see assignment
+  Given I check only the following ratings: (none)
+  When I submit the filter form
+  Then I should see titles: Aladdin, The Terminator, When Harry Met Sally, The Help, Chocolat, Amelie, 2001: A Space Odyssey, The Incredibles, Raiders of the Lost Ark, Chicken Run
 
 Scenario: all ratings selected
   # see assignment
