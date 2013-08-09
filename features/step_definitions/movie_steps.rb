@@ -27,9 +27,14 @@ end
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-  #  ensure that that e1 occurs before e2.
-  #  page.body is the entire content of the page as a string.
-  flunk "Unimplemented"
+  table_rows = all "table#movies tbody tr"
+  index_map = {}
+  table_rows.map do |row|
+    title = row.find("td").text
+    index_map[title] = table_rows.find_index(row)
+  end
+  assert table_rows.count == index_map.count
+  assert index_map[e1] < index_map[e2], "'#{e1}' should come before '#{e2}'."
 end
 
 # Make it easier to express checking or unchecking several boxes at once
