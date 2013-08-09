@@ -6,7 +6,8 @@ Given /the following movies exist/ do |movies_table|
 end
 
 Given /^I check only the following ratings: ((?:.+,)*.+)$/ do |ratings|
-  checked_ratings = "(none)" == ratings ? [] : ratings.split(", ")
+  fixed_ratings = {"(none)" => [], "(all)" => Movie.all_ratings}
+  checked_ratings = fixed_ratings[ratings] || ratings.split(", ")
   unchecked_ratings = Movie.all_ratings - checked_ratings
   checked_ratings.each {|rating| check "ratings_#{rating}"}
   unchecked_ratings.each {|rating| uncheck "ratings_#{rating}"}

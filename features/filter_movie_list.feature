@@ -37,4 +37,6 @@ Scenario: no ratings selected
   Then I should see titles: Aladdin, The Terminator, When Harry Met Sally, The Help, Chocolat, Amelie, 2001: A Space Odyssey, The Incredibles, Raiders of the Lost Ark, Chicken Run
 
 Scenario: all ratings selected
-  # see assignment
+  Given I check only the following ratings: (all)
+  When I submit the filter form
+  Then I should see titles: Aladdin, The Terminator, When Harry Met Sally, The Help, Chocolat, Amelie, 2001: A Space Odyssey, The Incredibles, Raiders of the Lost Ark, Chicken Run
